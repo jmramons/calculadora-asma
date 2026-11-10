@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crisis asmática pediátrica</title>
+<meta name="description" content="Valoración y tratamiento de la crisis asmática en la infancia según protocolo (GINA 2026, GEMA 5.5, SEUP 2024). Servicio de Pediatría y Neonatología. Hospital de la Axarquía.">
+<meta name="theme-color" content="#0f6b74">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Crisis asmática">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<style>
+:root{
+  --bg:#f3f6f8; --card:#ffffff; --ink:#14202b; --muted:#5b6b7a; --line:#d9e1e8;
+  --brand:#0f6b74; --brand-2:#13838e; --brand-ink:#ffffff; --soft:#e4f2f3;
+  --ok:#1d7a46; --ok-bg:#e5f4ec; --warn:#9a5b00; --warn-bg:#fff4e0;
+  --bad:#b3261e; --bad-bg:#fdeceb; --info-bg:#e8f3f5; --vital:#6d1b7b; --vital-bg:#f6e9f8;
+  --radius:14px; --shadow:0 1px 2px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f151b; --card:#18212a; --ink:#e6edf3; --muted:#9aabbb; --line:#2a3743;
+    --brand:#1b8792; --brand-2:#3fb3bd; --soft:#17302f;
+    --ok:#5cc98b; --ok-bg:#16301f; --warn:#f0b354; --warn-bg:#33270f;
+    --bad:#ff8a80; --bad-bg:#3a1a18; --info-bg:#152a2e; --vital:#e3a3ef; --vital-bg:#33193a;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f151b; --card:#18212a; --ink:#e6edf3; --muted:#9aabbb; --line:#2a3743;
+  --brand:#1b8792; --brand-2:#3fb3bd; --soft:#17302f;
+  --ok:#5cc98b; --ok-bg:#16301f; --warn:#f0b354; --warn-bg:#33270f;
+  --bad:#ff8a80; --bad-bg:#3a1a18; --info-bg:#152a2e; --vital:#e3a3ef; --vital-bg:#33193a; --shadow:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  padding-bottom:calc(72px + env(safe-area-inset-bottom));}
+header{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:var(--brand-ink);
+  padding:calc(10px + env(safe-area-inset-top)) 16px 12px;position:sticky;top:0;z-index:20}
+header .srv{font-size:12.5px;letter-spacing:.02em;opacity:.95;font-weight:600;text-transform:uppercase}
+header .hosp{font-size:12.5px;opacity:.9}
+header h1{margin:4px 0 0;font-size:19px;font-weight:700}
+main{max-width:1180px;margin:0 auto;padding:12px 16px}
+.view{display:none}.view.on{display:block}
+.grid{display:grid;gap:14px}
+@media(min-width:980px){.grid.calc{grid-template-columns:minmax(360px,440px) 1fr;align-items:start}
+  .grid.calc>#plan{position:sticky;top:96px;max-height:calc(100vh - 110px);overflow:auto}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
+#plan{scroll-margin-top:96px}
+.card h2{font-size:15px;margin:0 0 10px;color:var(--brand-2);text-transform:uppercase;letter-spacing:.03em}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.row>.f{flex:1 1 120px;min-width:0}
+label.l{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+input[type=number],select{width:100%;font-size:17px;padding:10px 10px;border:1px solid var(--line);
+  border-radius:10px;background:var(--bg);color:var(--ink);-webkit-appearance:none;appearance:none}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 16px) 55%,calc(100% - 11px) 55%;background-size:5px 5px;background-repeat:no-repeat;padding-right:28px}
+input:focus,select:focus{outline:2px solid var(--brand-2);outline-offset:1px}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{flex:1;border:0;background:var(--bg);color:var(--ink);padding:10px 4px;font-size:15px;cursor:pointer;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button.on{background:var(--brand);color:#fff;font-weight:600}
+#grav button[data-v="0"].on{background:var(--ok)}
+#grav button[data-v="1"].on{background:#c27a00}
+#grav button[data-v="2"].on{background:var(--bad)}
+#grav button[data-v="3"].on{background:#6d1b7b}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line);cursor:pointer}
+.chk:first-of-type{border-top:0}
+.chk input{width:22px;height:22px;flex:0 0 22px;margin:1px 0 0;accent-color:var(--brand)}
+.chk span small{display:block;color:var(--muted);font-size:12.5px}
+.hint{font-size:12.5px;color:var(--muted);margin-top:4px}
+.pill{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--soft);color:var(--brand-2);font-weight:600}
+.sum{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:560px){.sum{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:var(--soft);border-radius:10px;padding:8px 10px}
+.kpi b{display:block;font-size:20px}
+.kpi span{font-size:12px;color:var(--muted)}
+.kpi.s0{background:var(--ok-bg)}.kpi.s0 b{color:var(--ok)}
+.kpi.s1{background:var(--warn-bg)}.kpi.s1 b{color:var(--warn)}
+.kpi.s2{background:var(--bad-bg)}.kpi.s2 b{color:var(--bad)}
+.kpi.s3{background:var(--vital-bg)}.kpi.s3 b{color:var(--vital)}
+.step{border-left:5px solid var(--brand-2);padding:12px 14px;margin-top:12px;border-radius:10px;background:var(--card);border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.step.red{border-left-color:var(--bad)}.step.green{border-left-color:var(--ok)}.step.orange{border-left-color:var(--warn)}.step.grey{border-left-color:var(--muted);opacity:.95}.step.vital{border-left-color:var(--vital)}
+.step h3{margin:0 0 6px;font-size:16px}
+.step .n{display:inline-block;min-width:24px;height:24px;line-height:24px;text-align:center;border-radius:50%;background:var(--brand-2);color:#fff;font-size:13px;margin-right:6px}
+.step.red .n{background:var(--bad)}.step.green .n{background:var(--ok)}.step.orange .n{background:var(--warn)}.step.grey .n{background:var(--muted)}.step.vital .n{background:var(--vital)}
+.big{font-size:20px;font-weight:700;margin:4px 0}
+.step ul{margin:6px 0 0;padding-left:20px}.step li{margin:3px 0}
+.recipe{background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:8px 10px;margin:8px 0;font-size:15px}
+.recipe b{color:var(--brand-2)}
+.alert{border-radius:10px;padding:9px 12px;margin:8px 0;font-size:14.5px}
+.alert.w{background:var(--warn-bg);color:var(--warn)}
+.alert.b{background:var(--bad-bg);color:var(--bad)}
+.alert.v{background:var(--vital-bg);color:var(--vital)}
+.alert.i{background:var(--info-bg)}
+.alert.o{background:var(--ok-bg);color:var(--ok)}
+.alert ul{margin:4px 0 0;padding-left:20px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:6px 6px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12.5px}
+td.c,th.c{text-align:center}
+tr.sec td{background:var(--soft);font-weight:600;color:var(--brand-2)}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{border:1px solid var(--brand);background:var(--brand);color:#fff;border-radius:10px;padding:10px 14px;font-size:15px;cursor:pointer}
+.btn.sec{background:transparent;color:var(--brand-2)}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--line);
+  display:flex;padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs button{flex:1;border:0;background:none;color:var(--muted);padding:9px 2px 8px;font-size:12px;cursor:pointer}
+nav.tabs button svg{display:block;margin:0 auto 2px;width:22px;height:22px}
+nav.tabs button.on{color:var(--brand-2);font-weight:600}
+#irPlan{position:fixed;right:16px;bottom:calc(70px + env(safe-area-inset-bottom));z-index:25;border:0;border-radius:99px;
+  background:var(--brand);color:#fff;padding:11px 16px;font-size:15px;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer}
+@media(min-width:980px){#irPlan{display:none}}
+footer{font-size:12px;color:var(--muted);text-align:center;padding:16px}
+.hidden{display:none!important}
+.score{font-size:28px;font-weight:700;min-width:44px}
+.sel{margin-top:8px}
+@media print{
+  header{position:static;background:none;color:#000;border-bottom:2px solid #000}
+  nav.tabs,#form,.btns,.noprint{display:none!important}
+  body{background:#fff;padding:0}
+  .grid.calc{display:block}.grid.calc>#plan{position:static;max-height:none;overflow:visible}
+  .card,.step{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="srv">Servicio de Pediatría y Neonatología</div>
+  <div class="hosp">Hospital de la Axarquía</div>
+  <h1>Crisis asmática pediátrica</h1>
+</header>
+
+<main>
+<!-- ===================== PLAN ===================== -->
+<section id="v-calc" class="view on">
+<div class="grid calc">
+<div id="form" class="grid">
+
+  <div class="card">
+    <h2>Paciente</h2>
+    <div class="row">
+      <div class="f"><label class="l" for="edad">Edad</label><input id="edad" type="number" inputmode="decimal" min="0" step="1" placeholder="p. ej. 4"></div>
+      <div class="f"><label class="l" for="edadU">Unidad</label>
+        <select id="edadU"><option value="m">meses</option><option value="a" selected>años</option></select></div>
+      <div class="f"><label class="l" for="peso">Peso (kg)</label><input id="peso" type="number" inputmode="decimal" min="2" step="0.1" placeholder="Si se desconoce, se estima"></div>
+    </div>
+    <div id="pesoInfo" class="hint"></div>
+  </div>
+
+  <div class="card">
+    <h2>Valoración de la gravedad</h2>
+    <div class="row">
+      <div class="f"><label class="l" for="sat">SatO₂ aire ambiente (%)</label><input id="sat" type="number" inputmode="decimal" min="50" max="100" step="1" placeholder="—"></div>
+      <div class="f"><label class="l" for="ps">Pulmonary Score (0–9)</label><input id="ps" type="number" inputmode="numeric" min="0" max="9" step="1" placeholder="—"></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <div class="f"><label class="l" for="pram">PRAM (0–12)</label><input id="pram" type="number" inputmode="numeric" min="0" max="12" step="1" placeholder="—"></div>
+      <div class="f"><label class="l" for="pef">PEF/FEV₁ (% teórico)</label><input id="pef" type="number" inputmode="decimal" min="5" max="150" step="1" placeholder="≥ 6 años, opcional"></div>
+    </div>
+    <div class="hint">Calcule PS o PRAM en la pestaña <b>Escalas</b> y pulse «Aplicar». Si los criterios discrepan, prevalece el de mayor gravedad.</div>
+    <label class="l" style="margin-top:12px">Gravedad <span id="gravSrc" class="pill">sin datos</span></label>
+    <div class="seg" id="grav">
+      <button data-v="0">Leve</button><button data-v="1">Moderada</button><button data-v="2">Grave</button><button data-v="3">R. vital</button>
+    </div>
+    <div id="gravInfo" class="hint"></div>
+    <label class="chk" style="margin-top:6px"><input type="checkbox" id="rv"><span><b>Signos de riesgo vital</b><small>Alteración de conciencia, cianosis, tórax silente, agotamiento, no puede hablar/beber, SatO₂ &lt; 90 % pese a O₂, pCO₂ &gt; 45 mmHg</small></span></label>
+    <label class="chk"><input type="checkbox" id="anaf"><span><b>Sospecha de anafilaxia</b><small>Adrenalina IM antes que los broncodilatadores</small></span></label>
+  </div>
+
+  <div class="card">
+    <h2>Situación</h2>
+    <div class="f" style="margin-bottom:6px"><label class="l" for="fase">Momento de la valoración</label>
+      <select id="fase">
+        <option value="ini" selected>Llegada a Urgencias / valoración inicial</option>
+        <option value="mejora">Reevaluación: mejoría (criterios de leve)</option>
+        <option value="nr">Reevaluación tras 1 h: sin respuesta o empeora</option>
+      </select></div>
+    <label class="chk"><input type="checkbox" id="colab" checked><span><b>Puede inhalar con cámara</b><small>Si no colabora o hay hipoxemia grave: nebulizado</small></span></label>
+    <label class="chk"><input type="checkbox" id="vo" checked><span><b>Tolera vía oral</b><small>Para el corticoide sistémico</small></span></label>
+    <label class="chk"><input type="checkbox" id="frisk"><span><b>Factores de riesgo de crisis grave</b><small>Crisis graves/UCIP previas, ≥ 2 ingresos o ≥ 3 visitas a Urgencias en el último año, corticoide oral reciente, sin corticoide inhalado, abuso de SABA, mala adherencia, alergia alimentaria, problemas psicosociales</small></span></label>
+    <label class="chk"><input type="checkbox" id="basal"><span><b>Enfermedad de base grave</b><small>Cardiopatía, displasia broncopulmonar, fibrosis quística, enfermedad neuromuscular</small></span></label>
+  </div>
+</div>
+
+<!-- ===================== RESULTADO ===================== -->
+<div id="plan" class="card">
+  <h2>Plan de tratamiento</h2>
+  <div id="out"><div class="alert i">Introduzca la edad y la gravedad para generar el plan.</div></div>
+  <div class="btns noprint">
+    <button class="btn" id="copiar">Copiar plan</button>
+    <button class="btn sec" id="imprimir">Imprimir</button>
+    <button class="btn sec" id="reset">Nuevo paciente</button>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ===================== ESCALAS ===================== -->
+<section id="v-esc" class="view">
+<div class="grid" style="max-width:760px;margin:0 auto">
+  <div class="card">
+    <h2>Pulmonary Score</h2>
+    <div class="seg" id="psEdad"><button data-v="p" class="on">&lt; 6 años</button><button data-v="g">≥ 6 años</button></div>
+    <div id="psItems"></div>
+    <div class="row" style="margin-top:10px;align-items:center">
+      <div class="score" id="psS">0</div><div id="psR" style="flex:1"></div>
+      <button class="btn" id="psA">Aplicar</button>
+    </div>
+    <div class="hint">*Si no hay sibilancias y la actividad del ECM está aumentada, puntuar 3 (posible tórax silente). Combinar siempre con la SatO₂: leve PS 0–3 y SatO₂ &gt; 94 % · moderada PS 4–6 o SatO₂ 91–94 % · grave PS 7–9 o SatO₂ &lt; 91 %. Smith 2002; SEUP 2024.</div>
+  </div>
+
+  <div class="card">
+    <h2>PRAM (2–17 años)</h2>
+    <div id="pramItems"></div>
+    <div class="row" style="margin-top:10px;align-items:center">
+      <div class="score" id="pramS">0</div><div id="pramR" style="flex:1"></div>
+      <button class="btn" id="pramA">Aplicar</button>
+    </div>
+    <div class="hint">Leve 0–3 · Moderada 4–7 · Grave 8–12 · Riesgo vital inminente 11–12. Asimetría: puntuar el campo más afectado; sibilancias: el peor hallazgo. Chalut 2000; Ducharme 2008; GINA 2026.</div>
+  </div>
+
+  <div class="card">
+    <h2>Wood-Downes-Ferrés (0–14)</h2>
+    <div id="wdfItems"></div>
+    <div class="row" style="margin-top:10px;align-items:center">
+      <div class="score" id="wdfS">0</div><div id="wdfR" style="flex:1"></div>
+      <button class="btn" id="wdfA">Aplicar</button>
+    </div>
+    <div class="hint">Leve 1–3 · Moderada 4–7 · Grave 8–14. Alternativa clínica sin gasometría, útil en lactantes. García-Sosa 2018.</div>
+  </div>
+
+  <div class="card">
+    <h2>Wood-Downes (0–10) · UCIP</h2>
+    <div id="wdItems"></div>
+    <div class="row" style="margin-top:10px;align-items:center">
+      <div class="score" id="wdS">0</div><div id="wdR" style="flex:1"></div>
+    </div>
+    <div class="hint">Cortes variables según la fuente: ≥ 5 insuficiencia respiratoria inminente; ≥ 7 con PaCO₂ ≥ 65 mmHg, establecida. Usar como apoyo, no como criterio aislado. Wood 1972.</div>
+  </div>
+
+  <div class="card">
+    <h2>Gravedad en ≤ 5 años (GINA 2026)</h2>
+    <div class="tw"><table>
+      <tr><th>Signo</th><th>Leve</th><th>Moderada</th><th>Grave</th></tr>
+      <tr><td>Conciencia</td><td>Normal</td><td>Normal</td><td>Normal</td></tr>
+      <tr><td>Cianosis central</td><td>Ausente</td><td>Ausente</td><td>Puede estar presente</td></tr>
+      <tr><td>SatO₂ aire</td><td>≥ 94 %</td><td>≥ 92 %</td><td>&lt; 92 %</td></tr>
+      <tr><td>Habla</td><td>Frases</td><td>Frases cortas</td><td>Palabras</td></tr>
+      <tr><td>FR</td><td>≤ 40/min</td><td>↑, ≤ 40/min</td><td>&gt; 40/min</td></tr>
+      <tr><td>Músculos accesorios</td><td>Ausentes</td><td>Algunos</td><td>Presentes (escalenos)</td></tr>
+      <tr><td>Entrada de aire</td><td>Normal o ↓ leve en bases</td><td>Disminuida</td><td>Tórax silente o solo sibilancias inspiratorias</td></tr>
+      <tr><td>Escala</td><td>PRAM 1–3</td><td>PRAM 4–7</td><td>PRAM 8–10</td></tr>
+    </table></div>
+    <div class="hint">Riesgo vital: somnolencia, confusión, cianosis o PRAM 11–12. FR normal: &lt; 50/min (2–12 meses), &lt; 40/min (1–5 años).</div>
+  </div>
+
+  <div class="card">
+    <h2>Gravedad en ≥ 6 años (GINA 2026)</h2>
+    <div class="tw"><table>
+      <tr><th>Criterio</th><th>Leve</th><th>Moderada</th><th>Grave / riesgo vital</th></tr>
+      <tr><td>Habla y postura</td><td>Frases; puede tumbarse</td><td>Frases cortas; prefiere sentarse</td><td>No puede hablar, beber ni tumbarse</td></tr>
+      <tr><td>FR</td><td>Normal o ligeramente ↑</td><td>↑ pero ≤ 30/min</td><td>&gt; 30/min</td></tr>
+      <tr><td>Accesorios / sibilancias</td><td>No o leves</td><td>Accesorios; sibilancias espiratorias</td><td>Tórax silente o casi silente</td></tr>
+      <tr><td>SatO₂ aire</td><td>≥ 94 %</td><td>≥ 92 %</td><td>&lt; 92 %</td></tr>
+      <tr><td>PEF</td><td>&gt; 70 %</td><td>50–70 %</td><td>&lt; 50 %</td></tr>
+      <tr><td>PRAM</td><td>1–3</td><td>4–7</td><td>8–12 (vital 11–12)</td></tr>
+    </table></div>
+  </div>
+</div>
+</section>
+
+<!-- ===================== DOSIS ===================== -->
+<section id="v-dos" class="view">
+<div class="grid" style="max-width:900px;margin:0 auto">
+  <div class="card">
+    <h2>Dosis para el paciente</h2>
+    <div id="dosPac"><div class="alert i">Introduzca la edad (y el peso) en la pestaña <b>Plan</b>.</div></div>
+  </div>
+  <div class="card">
+    <h2>Tabla por peso (1.ª línea y magnesio)</h2>
+    <div class="tw"><table id="tPeso"></table></div>
+    <div class="hint">Salbutamol pMDI: regla SEUP peso/3 (mín. 5, máx. 10); GINA admite 4 puff en crisis leve y 4–5 en lactantes de 5–10 kg. Prednisolona: tope 40 mg aplicado (&lt; 2 a: 20 mg; 2–5 a: 30 mg). †MgSO₄ IV no indicado en &lt; 2 años.</div>
+  </div>
+  <div class="card">
+    <h2>Salbutamol nebulizado continuo</h2>
+    <div class="tw"><table id="tCont"></table></div>
+    <div class="hint">0,3–0,5 mg/kg/h, máx. 15 mg/h. Ejemplo en bomba sobre la cazoleta del nebulizador: dosis de 4 h + SSF hasta 40 mL a 10 mL/h, O₂ 6–8 L/min. Controlar K⁺ y glucemia. Retirada: cuando PS ≤ 6 / PRAM &lt; 8 estable → nebulización intermitente 0,15–0,3 mg/kg (máx. 10 mg) cada 1–4 h → pMDI.</div>
+  </div>
+  <div class="card">
+    <h2>Resumen de fármacos</h2>
+    <div class="tw"><table>
+      <tr><th>Fármaco</th><th>Dosis</th><th>Frecuencia</th><th>Máximo</th></tr>
+      <tr class="sec"><td colspan="4">Broncodilatadores</td></tr>
+      <tr><td>Salbutamol pMDI 100 µg + cámara</td><td>peso/3 puff (5–10). GINA: leve 4; moderada 4–6; grave ≥ 6 a 6–10</td><td>c/20 min × 3 (1.ª h); leve: 1 tanda, repetir 1 vez</td><td>10 puff</td></tr>
+      <tr><td>Salbutamol nebulizado 5 mg/mL</td><td>0,15 mg/kg (mín. 2,5 mg; 1,5 mg si &lt; 10 kg)</td><td>c/20 min × 3</td><td>5 mg</td></tr>
+      <tr><td>Budesonida-formoterol 160/4,5 (≥ 6 a)</td><td>2 inhalaciones</td><td>Según respuesta</td><td>—</td></tr>
+      <tr><td>Ipratropio pMDI 20 µg</td><td>&lt; 20 kg: 4 puff; ≥ 20 kg: 8 puff</td><td>Con las 2–3 primeras tandas</td><td>3 dosis</td></tr>
+      <tr><td>Ipratropio nebulizado</td><td>&lt; 20 kg: 250 µg; ≥ 20 kg: 500 µg</td><td>Con salbutamol c/20 min × 3</td><td>3 dosis</td></tr>
+      <tr class="sec"><td colspan="4">Corticoides sistémicos</td></tr>
+      <tr><td>Dexametasona VO</td><td>0,3–0,6 mg/kg</td><td>Única o repetir a las 24 h</td><td>12 mg</td></tr>
+      <tr><td>Prednisolona/prednisona VO</td><td>1–2 mg/kg/día</td><td>3–5 días, sin descenso</td><td>&lt; 2 a 20; 2–5 a 30; ≥ 6 a 40 mg/d</td></tr>
+      <tr><td>Metilprednisolona IV</td><td>1–2 mg/kg; luego 1–2 mg/kg/día</td><td>Hasta tolerar VO</td><td>125 mg/día</td></tr>
+      <tr class="sec"><td colspan="4">Segunda línea y rescate</td></tr>
+      <tr><td>Sulfato de magnesio IV</td><td>40–50 mg/kg</td><td>Dosis única en 20 min</td><td>2 g · solo ≥ 2 a</td></tr>
+      <tr><td>Salbutamol IV (UCIP)</td><td>Bolo 15 µg/kg en 10 min; perfusión 1–2 µg/kg/min</td><td>Continua</td><td>5 µg/kg/min</td></tr>
+      <tr><td>Aminofilina IV</td><td>Carga 5 mg/kg en 20 min; 1 mg/kg/h</td><td>Continua</td><td>Sin carga si toma teofilina</td></tr>
+      <tr><td>Adrenalina IM 1 mg/mL</td><td>0,01 mg/kg</td><td>Repetir a los 5–15 min</td><td>0,5 mg</td></tr>
+      <tr><td>Ketamina IV</td><td>1–2 mg/kg (inducción)</td><td>—</td><td>Confirmar con UCIP</td></tr>
+    </table></div>
+    <div class="alert w">MgSO₄ nebulizado, antibióticos de rutina, radiografía de rutina y salbutamol IV de rutina: <b>no recomendados</b>.</div>
+  </div>
+</div>
+</section>
+
+<!-- ===================== INFO ===================== -->
+<section id="v-inf" class="view">
+<div class="grid" style="max-width:760px;margin:0 auto">
+  <div class="card">
+    <h2>Acerca de</h2>
+    <p>Herramienta de apoyo basada en el protocolo <i>Manejo de la crisis asmática en la infancia y la adolescencia</i> (v1.1, 31 de octubre de 2026), elaborado a partir de GINA 2026, GEMA 5.5, SEUP 2024, BTS/SIGN 158, revisiones Cochrane y ensayos clínicos.</p>
+    <div class="alert b"><b>Aviso.</b> No sustituye al juicio clínico ni a los protocolos y formularios del centro. Compruebe presentaciones comerciales, dosis máximas y ficha técnica antes de prescribir. En el primer episodio del lactante, descarte bronquiolitis y otros diagnósticos.</div>
+    <p style="margin-bottom:0">No se guarda ni se envía ningún dato del paciente: todo se calcula en el propio dispositivo.</p>
+  </div>
+  <div class="card">
+    <h2>Reglas empleadas</h2>
+    <ul style="margin:0;padding-left:20px">
+      <li><b>Peso estimado</b> (si no se conoce; APLS): &lt; 12 meses = 0,5 × meses + 4; 1–5 años = 2 × años + 8; ≥ 6 años = 3 × años + 7. Siempre que sea posible, <b>pesar</b>.</li>
+      <li><b>Gravedad</b>: la mayor de PS + SatO₂ (SEUP), PRAM (GINA) y PEF. PS 9, PRAM 11–12 o signos de riesgo vital → riesgo vital.</li>
+      <li><b>Oxígeno</b> si SatO₂ &lt; 92 %; objetivo ≥ 92 % (≤ 5 años) o 92–95 % (≥ 6 años).</li>
+      <li>Redondeos: salbutamol nebulizado a 0,25 mg; corticoides a 0,5 mg; resto a 1 decimal.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>Discrepancias entre guías (opción adoptada)</h2>
+    <div class="tw"><table>
+      <tr><th>Aspecto</th><th>SEUP</th><th>GINA</th><th>Adoptada</th></tr>
+      <tr><td>Salbutamol pMDI</td><td>peso/3 (5–10)</td><td>4 / 4–6 / 6–10</td><td>Ambas; GINA en leve</td></tr>
+      <tr><td>Prednisolona máx.</td><td>60 mg/d</td><td>20 / 30 / 40 mg por edad</td><td>Topes GINA</td></tr>
+      <tr><td>Dexametasona</td><td>0,6 mg/kg × 2</td><td>0,3–0,6 mg/kg, 1–2 d</td><td>0,3–0,6 (máx. 12 mg)</td></tr>
+      <tr><td>MgSO₄ IV</td><td>40 mg/kg</td><td>40–50 mg/kg; ≥ 2 a</td><td>40–50 mg/kg, ≥ 2 a</td></tr>
+      <tr><td>Ipratropio pMDI</td><td>4 / 8 puff por peso</td><td>4 puff</td><td>Por peso (SEUP)</td></tr>
+      <tr><td>Leve en PS</td><td>«PS &lt; 3»</td><td>Smith: 0–3</td><td>0–3</td></tr>
+      <tr><td>Neb. continua</td><td>Sin dosis</td><td>EPR-3 0,5 mg/kg/h</td><td>0,3–0,5 mg/kg/h, máx. 15</td></tr>
+    </table></div>
+  </div>
+  <div class="card">
+    <h2>Instalar en el móvil</h2>
+    <ul style="margin:0;padding-left:20px">
+      <li><b>iPhone (Safari)</b>: botón Compartir → «Añadir a pantalla de inicio».</li>
+      <li><b>Android (Chrome)</b>: menú ⋮ → «Instalar aplicación» o «Añadir a pantalla de inicio».</li>
+    </ul>
+    <div class="hint">Una vez instalada desde una dirección web, funciona sin conexión.</div>
+  </div>
+  <div class="card noprint">
+    <h2>Apariencia</h2>
+    <div class="seg" id="tema"><button data-v="">Automática</button><button data-v="light">Clara</button><button data-v="dark">Oscura</button></div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>Servicio de Pediatría y Neonatología · Hospital de la Axarquía · Basado en GINA 2026 / GEMA 5.5 / SEUP 2024 · v1.0</footer>
+
+<button id="irPlan" class="noprint hidden">Ver plan ↓</button>
+<nav class="tabs">
+  <button data-v="calc" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v8M12 11c-1.5 1-3 1.5-4 1.5"/><path d="M12 11c1.5 1 3 1.5 4 1.5"/><path d="M8 7c-3 0-5 4-5 9 0 3 1.5 4 3 4s3-1 3-3V9"/><path d="M16 7c3 0 5 4 5 9 0 3-1.5 4-3 4s-3-1-3-3V9"/></svg>Plan</button>
+  <button data-v="esc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>Escalas</button>
+  <button data-v="dos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="9" width="18" height="7" rx="3.5" transform="rotate(-35 12 12.5)"/><path d="M9.5 8.5l5 7"/></svg>Dosis</button>
+  <button data-v="inf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-5M12 8h.01"/></svg>Info</button>
+</nav>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const num = id => { const v = parseFloat(String($(id).value).replace(',', '.')); return isFinite(v) ? v : null; };
+const f = (x, d=1) => (x==null||!isFinite(x)) ? '—' : Number(x).toLocaleString('es-ES',{maximumFractionDigits:d, minimumFractionDigits:0});
+const rnd = (x, step) => Math.round(x/step)*step;
+const clamp = (x,a,b) => Math.min(b,Math.max(a,x));
+const NIV = ['Leve','Moderada','Grave','Riesgo vital'];
+
+/* ============ Edad y peso ============ */
+function edadAnios(){
+  const e = num('edad'); if (e==null) return null;
+  return $('edadU').value==='m' ? e/12 : e;
+}
+function pesoEstimado(a){
+  if (a==null) return null;
+  const m = a*12;
+  if (m < 12) return 0.5*Math.floor(m) + 4;
+  if (a < 6)  return 2*Math.floor(a) + 8;
+  return 3*Math.floor(a) + 7;
+}
+function grupo(a){ return a<2 ? 'lac' : a<6 ? 'pre' : a<12 ? 'esc' : 'ado'; }
+const GRUPO_TXT = {lac:'Lactante (< 2 años)', pre:'Preescolar (2–5 años)', esc:'Escolar (6–11 años)', ado:'Adolescente (≥ 12 años)'};
+
+/* ============ Dosis ============ */
+function dosis(kg, a){
+  const D = {};
+  D.puff = clamp(Math.round(kg/3),5,10);
+  D.puffBajo = kg < 10;                                     // 4–5 puff en 5–10 kg
+  D.neb = clamp(rnd(0.15*kg,0.25), kg<10?1.5:2.5, 5);       // mg
+  D.ipraPuff = kg<20 ? 4 : 8; D.ipraNeb = kg<20 ? 250 : 500;
+  D.dexMin = Math.min(rnd(0.3*kg,0.5),12); D.dexMax = Math.min(rnd(0.6*kg,0.5),12);
+  D.predCap = a==null ? 40 : a<2 ? 20 : a<6 ? 30 : a<12 ? 40 : 50;
+  D.predMin = Math.min(rnd(kg,0.5),D.predCap); D.predMax = Math.min(rnd(2*kg,0.5),D.predCap);
+  D.mpMin = Math.min(rnd(kg,0.5),125); D.mpMax = Math.min(rnd(2*kg,0.5),125);
+  D.mgOK = a==null ? null : a>=2;
+  D.mgMin = Math.min(40*kg,2000); D.mgMax = Math.min(50*kg,2000);
+  D.contMin = Math.min(0.3*kg,15); D.contMax = Math.min(0.5*kg,15);
+  D.cont4h = D.contMax*4;                                   // mg para 4 h a 0,5 mg/kg/h
+  D.weanMin = Math.min(0.15*kg,10); D.weanMax = Math.min(0.3*kg,10);
+  D.salbIVbolo = 15*kg; D.salbIVp = [1*kg, 2*kg];          // µg y µg/min
+  D.amiCarga = 5*kg; D.amiMant = 1*kg;
+  D.adr = Math.min(rnd(0.01*kg,0.01),0.5);
+  D.ket = [kg, 2*kg];
+  D.o2 = a!=null && a>=6 ? '92–95 %' : '≥ 92 %';
+  return D;
+}
+const mgTxt = D => D.mgOK===false ? 'No indicado en < 2 años' : `${f(D.mgMin,0)}–${f(D.mgMax,0)} mg IV en 20 min`;
+const mL15 = mg => f(mg/150,1);   // sulfato de magnesio 15 % = 150 mg/mL
+
+/* ============ Gravedad ============ */
+let manual = null;           // gravedad elegida a mano (null = automática)
+function gravCalc(){
+  const sat=num('sat'), ps=num('ps'), pram=num('pram'), pef=num('pef');
+  const R = []; let lv = null;
+  const up = (l, why) => { R.push(`${why} → ${NIV[l].toLowerCase()}`); lv = lv==null ? l : Math.max(lv,l); };
+  if (sat!=null) up(sat<91?2 : sat<=94?1 : 0, `SatO₂ ${f(sat,0)} %`);
+  if (ps!=null)  up(ps>=9?3 : ps>=7?2 : ps>=4?1 : 0, `PS ${f(ps,0)}`);
+  if (pram!=null) up(pram>=11?3 : pram>=8?2 : pram>=4?1 : 0, `PRAM ${f(pram,0)}`);
+  if (pef!=null) up(pef<50?2 : pef<=70?1 : 0, `PEF ${f(pef,0)} %`);
+  if ($('rv').checked) up(3, 'Signos de riesgo vital');
+  return {lv, R};
+}
+function nivelEfectivo(){
+  const g = gravCalc();
+  let lv = manual!=null ? manual : g.lv;
+  if ($('rv').checked) lv = 3;
+  return {lv, g};
+}
+function pintaGrav(){
+  const {lv, g} = nivelEfectivo();
+  document.querySelectorAll('#grav button').forEach(b=>b.classList.toggle('on', lv!=null && +b.dataset.v===lv));
+  $('gravSrc').textContent = lv==null ? 'sin datos' : (manual!=null && !$('rv').checked) ? 'manual' : 'calculada';
+  let t = g.R.length ? g.R.join(' · ') : '';
+  if (manual!=null && g.lv!=null && manual < g.lv && !$('rv').checked) t += ` <br><b style="color:var(--bad)">La gravedad elegida es menor que la calculada (${NIV[g.lv].toLowerCase()}).</b>`;
+  $('gravInfo').innerHTML = t;
+}
+document.querySelectorAll('#grav button').forEach(b=>b.addEventListener('click',()=>{ manual = +b.dataset.v; calc(); }));
+['sat','ps','pram','pef'].forEach(id=>$(id).addEventListener('input',()=>{ manual = null; }));
+['edad','edadU','peso','sat','ps','pram','pef','rv','anaf','fase','colab','vo','frisk','basal']
+  .forEach(id=>{ $(id).addEventListener('input',calc); $(id).addEventListener('change',calc); });
+
+/* ============ Motor del plan ============ */
+let planTxt = '';
+function calc(){
+  pintaGrav();
+  const out = $('out');
+  const a = edadAnios();
+  const pesoReal = num('peso');
+  const pesoEst = pesoEstimado(a);
+  const kg = pesoReal || pesoEst;
+  $('pesoInfo').innerHTML = (!pesoReal && pesoEst) ? `Peso estimado por edad: <b>${f(pesoEst)} kg</b> (APLS). Pese al paciente en cuanto sea posible.` : '';
+  dosisPaciente(kg, a, !pesoReal);
+
+  if (a==null || !kg){ out.innerHTML = '<div class="alert i">Introduzca la edad (necesaria para los topes de dosis por edad) y, si se conoce, el peso.</div>'; planTxt=''; updIr(); return; }
+  let {lv} = nivelEfectivo();
+  if (lv==null){ out.innerHTML = '<div class="alert i">Introduzca la SatO₂ y una escala (Pulmonary Score o PRAM), o seleccione la gravedad.</div>'; planTxt=''; updIr(); return; }
+
+  const D = dosis(kg, a);
+  const gr = grupo(a);
+  const fase = $('fase').value, colab = $('colab').checked, vo = $('vo').checked;
+  const frisk = $('frisk').checked, basal = $('basal').checked, anaf = $('anaf').checked;
+  const sat = num('sat');
+  const edadTxt = a<2 ? `${f(a*12,0)} meses` : `${f(a,1)} años`;
+
+  // Moderada sin respuesta → se trata como grave
+  let escalaMod = false;
+  if (lv===1 && fase==='nr'){ lv = 2; escalaMod = true; }
+
+  const H = [], T = []; let n = 0;
+  const step = (cls, title, body, txt) => { n++; H.push(`<div class="step ${cls}"><h3><span class="n">${n}</span>${title}</h3>${body}</div>`); T.push(`${n}. ${title.replace(/<[^>]+>/g,'')}\n${txt}`); };
+
+  H.push(`<div class="sum">
+    <div class="kpi s${lv}"><span>Gravedad</span><b>${NIV[lv]}</b></div>
+    <div class="kpi"><span>Peso ${pesoReal?'':'(estimado)'}</span><b>${f(kg)} kg</b></div>
+    <div class="kpi"><span>Edad</span><b>${edadTxt}</b></div>
+    <div class="kpi"><span>SatO₂ objetivo</span><b>${D.o2}</b></div></div>
+    <div class="hint" style="margin-top:6px">${GRUPO_TXT[gr]}${sat!=null?` · SatO₂ ${f(sat,0)} %`:''}</div>`);
+  T.push(`CRISIS ASMÁTICA — PLAN\nEdad ${edadTxt}; peso ${f(kg)} kg${pesoReal?'':' (estimado)'}; gravedad ${NIV[lv].toLowerCase()}${$('gravInfo').textContent?` (${gravCalc().R.join('; ')})`:''}.`);
+
+  const warns = [];
+  if (escalaMod) warns.push('Crisis moderada sin respuesta tras la 1.ª hora: se trata como grave (valorar observación o ingreso).');
+  if (gr==='lac') warns.push('Lactante: descartar bronquiolitis (corticoides no indicados), laringitis, neumonía, cuerpo extraño, cardiopatía. Mantener el broncodilatador solo si hay respuesta objetiva.');
+  if (sat!=null && sat<92) warns.push('SatO₂ inicial < 92 %: mayor riesgo de ingreso y de estancia prolongada.');
+  if (kg<10 && !pesoReal) warns.push('Peso estimado < 10 kg: pese al paciente; las dosis mínimas pesan más en lactantes pequeños.');
+  warns.forEach(w=>H.push(`<div class="alert w">${w}</div>`));
+  if (warns.length) T.push('Avisos: ' + warns.join(' '));
+
+  // ---- Anafilaxia
+  if (anaf){
+    step('red','Anafilaxia: adrenalina IM primero',
+      `<div class="big">Adrenalina 1 mg/mL: ${f(D.adr,2)} mg = ${f(D.adr,2)} mL IM</div>
+      <ul><li>0,01 mg/kg (máx. 0,5 mg) en cara anterolateral del muslo. Repetir a los 5–15 min si precisa.</li>
+      <li>Después, broncodilatadores según la gravedad.</li></ul>`,
+      `Adrenalina 1 mg/mL ${f(D.adr,2)} mL IM (0,01 mg/kg, máx. 0,5 mg); repetir a los 5–15 min si precisa.`);
+  }
+
+  const salbNebTxt = `Salbutamol nebulizado ${f(D.neb,2)} mg (${f(D.neb/5,2)} mL de 5 mg/mL) + SSF hasta 3–4 mL, con O₂ a 6–8 L/min`;
+  const ipraNebTxt = `ipratropio ${D.ipraNeb} µg`;
+  const puffTxt = D.puffBajo ? `${D.puff} puff (4–5 en 5–10 kg)` : `${D.puff} puff`;
+  const predTxt = `prednisolona ${f(D.predMin)}–${f(D.predMax)} mg/día${gr==='ado'?' (adolescente 40–50 mg/día, 5–7 días)':` (máx. ${D.predCap} mg/día) 3–5 días`}`;
+  const mpTxt = `Metilprednisolona IV ${f(D.mpMin)}–${f(D.mpMax)} mg${gr==='lac'||gr==='pre'?` (GINA ≤ 5 años: ${f(D.mpMin)} mg c/6 h el 1.er día)`:''}`;
+  const mgBody = D.mgOK ? `<div class="big">MgSO₄ ${f(D.mgMin,0)}–${f(D.mgMax,0)} mg IV en 20 min</div>
+      <div class="recipe">Sulfato de magnesio 15 % (150 mg/mL): <b>${mL15(D.mgMin)}–${mL15(D.mgMax)} mL</b> · diluir según protocolo del centro y <b>comprobar presentación</b>.</div>
+      <ul><li>40–50 mg/kg, dosis única, máx. 2 g. Monitorizar TA (hipotensión, rubefacción). Contraindicado en insuficiencia renal.</li></ul>`
+    : `<div class="alert b">Sulfato de magnesio IV <b>no indicado en &lt; 2 años</b> (ineficaz en sibilancias víricas de 6 meses a 4 años).</div>`;
+  const mgPlain = D.mgOK ? `MgSO4 ${f(D.mgMin,0)}–${f(D.mgMax,0)} mg IV en 20 min (40–50 mg/kg, máx. 2 g; 15 %: ${mL15(D.mgMin)}–${mL15(D.mgMax)} mL). Vigilar TA.` : 'MgSO4 IV no indicado en < 2 años.';
+  const contBody = `<div class="recipe">Nebulización continua: <b>${f(D.contMin,1)}–${f(D.contMax,1)} mg/h</b> (0,3–0,5 mg/kg/h, máx. 15 mg/h).<br>
+      Ejemplo 4 h: salbutamol 5 mg/mL <b>${f(D.cont4h/5,1)} mL (${f(D.cont4h,1)} mg)</b> + SSF hasta 40 mL, bomba a 10 mL/h, O₂ 6–8 L/min.</div>`;
+
+  // ---- RIESGO VITAL
+  if (lv===3){
+    step('vital','Estabilización y aviso a UCIP',
+      `<ul><li>ABCDE con monitorización completa (ECG, SatO₂, capnografía). Posición semiincorporada.</li>
+      <li><b>Avisar a UCIP.</b> Oxígeno a alto flujo (mascarilla con reservorio u OAF).</li>
+      <li>Vía IV: gasometría, iones, glucemia, lactato.</li></ul>`,
+      'ABCDE, monitorización completa, avisar UCIP; O2 alto flujo; vía IV con gasometría, iones, glucemia.');
+    step('vital','Broncodilatadores nebulizados',
+      `<div class="big">Salbutamol ${f(D.neb,2)} mg + ipratropio ${D.ipraNeb} µg</div>
+      <ul><li>${salbNebTxt}; c/20 min o continuo.</li><li>Ipratropio con las 3 primeras dosis.</li></ul>${contBody}`,
+      `${salbNebTxt} + ${ipraNebTxt}, c/20 min o continuo (${f(D.contMin,1)}–${f(D.contMax,1)} mg/h).`);
+    step('vital','Corticoide IV',
+      `<div class="big">${mpTxt}</div><ul><li>Pasar a VO en cuanto sea posible (máx. 125 mg/día).</li></ul>`, `${mpTxt}.`);
+    step('vital','Sulfato de magnesio IV', mgBody, mgPlain);
+    step('vital','Soporte respiratorio y rescate',
+      `<ul><li>VNI (CPAP/BiPAP) de elección en la insuficiencia respiratoria; no demorarla si OAF sin respuesta en 1–2 h.</li>
+      <li>Intubación por el profesional más experto; inducción con <b>ketamina ${f(D.ket[0],0)}–${f(D.ket[1],0)} mg</b> (1–2 mg/kg; confirmar con UCIP).</li>
+      <li>Rescate en UCIP: salbutamol IV bolo <b>${f(D.salbIVbolo,0)} µg</b> en 10 min (15 µg/kg) y/o perfusión ${f(D.salbIVp[0],0)}–${f(D.salbIVp[1],0)} µg/min (1–2 µg/kg/min, máx. 5); aminofilina carga <b>${f(D.amiCarga,0)} mg</b> en 20 min y ${f(D.amiMant,1)} mg/h (sin carga si toma teofilina); heliox como gas vehicular.</li></ul>`,
+      `VNI; intubación con ketamina ${f(D.ket[0],0)}–${f(D.ket[1],0)} mg. Rescate UCIP: salbutamol IV ${f(D.salbIVbolo,0)} µg bolo, perfusión ${f(D.salbIVp[0],0)}–${f(D.salbIVp[1],0)} µg/min; aminofilina ${f(D.amiCarga,0)} mg carga + ${f(D.amiMant,1)} mg/h.`);
+  }
+
+  // ---- GRAVE
+  if (lv===2){
+    step('red','Oxígeno',
+      `<ul><li>Si SatO₂ &lt; 92 % o trabajo respiratorio intenso, humidificado. Objetivo <b>${D.o2}</b>.</li>
+      ${!colab?'<li>Hipoxemia grave o no colabora: nebulizar con O₂.</li>':''}</ul>`,
+      `O2 si SatO2 < 92 %; objetivo ${D.o2}.`);
+    const puffG = a>=6 ? '8–10 puff' : a>=2 ? `4–6 puff (SEUP peso/3: ${D.puff})` : puffTxt;
+    const salbG = colab ? `<div class="big">Salbutamol pMDI ${puffG} c/20 min × 3</div><ul><li>O nebulizado: ${salbNebTxt}.</li>`
+                        : `<div class="big">Salbutamol nebulizado ${f(D.neb,2)} mg c/20 min × 3</div><ul><li>${salbNebTxt}.</li>`;
+    step('red','Salbutamol + ipratropio (1.ª hora)',
+      `${salbG}<li>Ipratropio con las 3 primeras: ${colab?`pMDI <b>${D.ipraPuff} puff</b> o `:''}nebulizado <b>${D.ipraNeb} µg</b> (mezclado).</li>
+      <li>Un puff cada vez, 5–6 respiraciones por puff${a<4?'; mascarilla en &lt; 4 años':''}.</li></ul>`,
+      `${colab?`Salbutamol pMDI ${puffG}`:salbNebTxt} c/20 min × 3 + ipratropio ${colab?`${D.ipraPuff} puff o `:''}${D.ipraNeb} µg con las 3 primeras.`);
+    const corG = vo ? `<div class="big">Dexametasona ${f(D.dexMax)} mg VO</div><ul><li>0,6 mg/kg (máx. 12 mg). Alternativa: ${predTxt}.</li><li>Si no tolera VO: ${mpTxt}.</li></ul>`
+                    : `<div class="big">${mpTxt}</div><ul><li>No tolera VO. Pasar a VO en cuanto sea posible.</li></ul>`;
+    step('red','Corticoide sistémico en la primera hora', corG,
+      vo ? `Dexametasona ${f(D.dexMax)} mg VO (0,6 mg/kg, máx. 12) o ${predTxt}.` : `${mpTxt} (no tolera VO).`);
+    if (fase==='nr' && !escalaMod){
+      step('red','Sin respuesta a los 60 min: escalada',
+        `<ul><li>Rx de tórax y gasometría; iones, glucemia y lactato.</li>
+        <li>Oxigenoterapia de alto flujo; si no mejora en 1–2 h → VNI. Valorar <b>UCIP</b>.</li></ul>${mgBody}${contBody}
+        <ul><li>Monitorizar FC/ECG, SatO₂, FR y escala horaria; K⁺ y glucemia al inicio y periódicamente (taquicardia, hipopotasemia, acidosis láctica).</li>
+        <li>Retirada cuando PS ≤ 6 / PRAM &lt; 8 estable: nebulizado intermitente ${f(D.weanMin,1)}–${f(D.weanMax,1)} mg c/1–4 h → pMDI.</li>
+        <li>Refractaria (UCIP): salbutamol IV bolo ${f(D.salbIVbolo,0)} µg; aminofilina ${f(D.amiCarga,0)} mg carga; heliox.</li></ul>`,
+        `Escalada: Rx y gasometría; OAF → VNI si no mejora en 1–2 h; valorar UCIP. ${mgPlain} Nebulización continua ${f(D.contMin,1)}–${f(D.contMax,1)} mg/h (4 h: ${f(D.cont4h/5,1)} mL de 5 mg/mL + SSF hasta 40 mL a 10 mL/h).`);
+    } else {
+      step('orange','Reevaluar a los 60 min',
+        `<ul><li>Mejora (criterios de leve): observar y pasar a pMDI a demanda.</li>
+        <li>Sin respuesta o deterioro: <b>MgSO₄ IV</b> ${D.mgOK?`(${f(D.mgMin,0)}–${f(D.mgMax,0)} mg)`:'(no en &lt; 2 años)'}, Rx de tórax, gasometría, OAF, nebulización continua (${f(D.contMin,1)}–${f(D.contMax,1)} mg/h). Seleccione «sin respuesta» para ver la escalada completa.</li></ul>`,
+        `Reevaluar a los 60 min; si no responde: MgSO4, Rx, gasometría, OAF, nebulización continua.`);
+    }
+  }
+
+  // ---- MODERADA
+  if (lv===1){
+    const s = colab ? `<div class="big">Salbutamol pMDI ${puffTxt} c/20 min × 3</div><ul><li>Regla SEUP peso/3; GINA 4–6 puff.</li>`
+                    : `<div class="big">Salbutamol nebulizado ${f(D.neb,2)} mg c/20 min × 3</div><ul><li>${salbNebTxt}.</li>`;
+    step('orange','Salbutamol + ipratropio (1.ª hora)',
+      `${s}<li>Ipratropio con las 2–3 primeras tandas: ${colab?`pMDI <b>${D.ipraPuff} puff</b>`:`nebulizado <b>${D.ipraNeb} µg</b>`}.</li>
+      <li>Un puff cada vez, 5–6 respiraciones por puff${a<4?'; mascarilla en &lt; 4 años':''}.</li></ul>`,
+      `${colab?`Salbutamol pMDI ${puffTxt}`:salbNebTxt} c/20 min × 3 + ipratropio ${colab?`${D.ipraPuff} puff`:`${D.ipraNeb} µg`} con las 2–3 primeras.`);
+    const corM = vo ? `<div class="big">Dexametasona ${f(D.dexMin)}–${f(D.dexMax)} mg VO</div><ul><li>0,3–0,6 mg/kg (máx. 12 mg). Alternativa: ${predTxt}.</li>${gr==='lac'?'<li>Lactante: solo si sibilancias recurrentes con respuesta a SABA (no en bronquiolitis).</li>':''}</ul>`
+                    : `<div class="big">${mpTxt}</div><ul><li>No tolera VO.</li></ul>`;
+    step('orange','Corticoide oral en la primera hora', corM,
+      vo ? `Dexametasona ${f(D.dexMin)}–${f(D.dexMax)} mg VO (0,3–0,6 mg/kg, máx. 12) o ${predTxt}.` : `${mpTxt}.`);
+    step('orange','Oxígeno', `<ul><li>Solo si SatO₂ &lt; 92 %. Objetivo <b>${D.o2}</b>.</li></ul>`, `O2 solo si SatO2 < 92 % (objetivo ${D.o2}).`);
+    step('grey','Reevaluar a la hora',
+      `<ul><li>Criterios de leve: observar 1–2 h y alta.</li><li>Sin respuesta: tratar como grave u observación/ingreso (seleccione «sin respuesta»).</li></ul>`,
+      'Reevaluar a la hora: si leve, observar 1–2 h y alta; si no, tratar como grave.');
+  }
+
+  // ---- LEVE
+  if (lv===0){
+    step('green','Salbutamol pMDI con cámara',
+      `<div class="big">Salbutamol 4 puff (GINA) o ${D.puff} puff (SEUP)</div>
+      <ul><li>Repetir una vez a los 20–60 min si precisa.</li>
+      ${a>=6?'<li>Alternativa ≥ 6 años: <b>budesonida-formoterol 160/4,5 µg, 2 inhalaciones</b> (facilita iniciar MART).</li>':''}
+      <li>Un puff cada vez, 5–6 respiraciones por puff${a<4?'; mascarilla en &lt; 4 años':''}.</li></ul>`,
+      `Salbutamol pMDI 4 puff (GINA) o ${D.puff} puff (SEUP); repetir una vez a los 20–60 min.${a>=6?' Alternativa: budesonida-formoterol 160/4,5, 2 inh.':''}`);
+    step(frisk?'orange':'grey', frisk?'Corticoide oral (factores de riesgo)':'Corticoide oral solo si precisa',
+      `<ul><li>${frisk?'Indicado por factores de riesgo.':'Si necesita más de una tanda de salbutamol o tiene factores de riesgo.'}</li>
+      <li>Dexametasona <b>${f(D.dexMin)}–${f(D.dexMax)} mg</b> VO (0,3–0,6 mg/kg, máx. 12) o ${predTxt}.</li></ul>`,
+      `${frisk?'Corticoide oral (factores de riesgo)':'Corticoide oral solo si > 1 tanda o factores de riesgo'}: dexametasona ${f(D.dexMin)}–${f(D.dexMax)} mg o ${predTxt}.`);
+  }
+
+  // ---- Destino
+  const ingreso = `<ul><li>Dificultad respiratoria persistente tras el tratamiento inicial; broncodilatador con intervalo &lt; 2 h; necesidad de O₂; disnea 4–6 h después del corticoide oral.</li>
+      ${basal?'<li><b>Enfermedad de base grave</b>: umbral bajo de ingreso.</li>':''}
+      ${frisk?'<li><b>Factores de riesgo</b>: valorar observación prolongada o ingreso.</li>':''}
+      ${lv>=2?'<li><b>UCIP</b>: gravedad persistente tras el tratamiento inicial, SatO₂ &lt; 90 % con FiO₂ &gt; 0,4, pCO₂ &gt; 45 mmHg, fracaso de OAF, arritmias, alteración de la conciencia.</li>':''}</ul>`;
+  const alta = `<ul><li>Criterios: estable ≥ 1–2 h tras la última dosis; PS ≤ 2 o PRAM ≤ 3; SatO₂ ≥ 92 % en aire; PEF &gt; 70 % si se mide; técnica inhalatoria comprobada.</li>
+      <li>Salbutamol pMDI con cámara <b>2–5 puff a demanda</b>; consultar si lo precisa con intervalo &lt; 4 h.</li>
+      <li>Completar corticoide: 2.ª dosis de dexametasona a las 24 h (<b>${f(D.dexMin)}–${f(D.dexMax)} mg</b>) o ${predTxt}.</li>
+      <li>${a>=6?'Iniciar o intensificar corticoide inhalado, preferible <b>MART con budesonida-formoterol</b>; no dejar solo SABA.':'Iniciar corticoide inhalado si la crisis fue moderada-grave, síntomas intercrisis, ≥ 2 ciclos de corticoide oral en 6 meses o ≥ 4 episodios/año con atopia.'}</li>
+      <li>Plan de acción escrito, evitar tabaco y control por su pediatra en <b>24–48 h</b>.</li>
+      ${gr==='ado'?'<li>Adolescente: explorar adherencia, técnica, tabaco/vapeo y salud mental.</li>':''}</ul>`;
+  if (fase==='mejora'){
+    step('green','Alta si se mantiene estable', alta, 'Alta si estable 1–2 h: salbutamol 2–5 puff a demanda; completar corticoide; CI/MART; plan escrito; control 24–48 h.');
+    step('grey','Criterios de ingreso', ingreso, 'Ingreso si dificultad persistente, SABA < 2 h, O2 o disnea 4–6 h tras corticoide.');
+  } else {
+    step('grey', lv>=2?'Destino: ingreso / UCIP':'Destino', ingreso + (lv<=1?`<details><summary><b>Alta y tratamiento al alta</b></summary>${alta}</details>`:''),
+      lv>=2 ? 'Valorar ingreso o UCIP según criterios.' : 'Ingreso si persiste la dificultad; alta si estable 1–2 h con plan de acción y control en 24–48 h.');
+  }
+
+  // ---- Pruebas
+  if (lv>=2) H.push('<div class="alert i">Pruebas: no rutinarias. Gasometría en crisis grave o deterioro (pO₂ &lt; 60 o pCO₂ &gt; 45 mmHg = insuficiencia respiratoria). Rx si asimetría, hipoxemia persistente o sospecha de neumotórax/neumonía/cuerpo extraño. Iones y glucemia con SABA a dosis altas. No antibióticos de rutina.</div>');
+
+  out.innerHTML = H.join('');
+  planTxt = T.join('\n\n') + '\n\n— Calculado con la app Crisis asmática pediátrica (Servicio de Pediatría y Neonatología, Hospital de la Axarquía). Revisar antes de prescribir.';
+  updIr();
+}
+
+/* ============ Dosis para el paciente (pestaña Dosis) ============ */
+function dosisPaciente(kg, a, est){
+  const el = $('dosPac');
+  if (!kg || a==null){ el.innerHTML = '<div class="alert i">Introduzca la edad (y el peso) en la pestaña <b>Plan</b>.</div>'; return; }
+  const D = dosis(kg, a);
+  el.innerHTML = `<div class="hint" style="margin-bottom:6px">${f(kg)} kg${est?' (estimado)':''} · ${a<2?f(a*12,0)+' meses':f(a,1)+' años'}</div><div class="tw"><table>
+    <tr><th>Fármaco</th><th>Dosis</th></tr>
+    <tr><td>Salbutamol pMDI</td><td><b>${D.puff} puff</b>${D.puffBajo?' (4–5 en 5–10 kg)':''} · GINA leve 4</td></tr>
+    <tr><td>Salbutamol nebulizado</td><td><b>${f(D.neb,2)} mg</b> = ${f(D.neb/5,2)} mL (5 mg/mL)</td></tr>
+    <tr><td>Ipratropio</td><td><b>${D.ipraPuff} puff</b> o <b>${D.ipraNeb} µg</b> nebulizado</td></tr>
+    ${a>=6?'<tr><td>Budesonida-formoterol 160/4,5</td><td>2 inhalaciones</td></tr>':''}
+    <tr><td>Dexametasona VO</td><td><b>${f(D.dexMin)}–${f(D.dexMax)} mg</b> (máx. 12)</td></tr>
+    <tr><td>Prednisolona VO</td><td><b>${f(D.predMin)}–${f(D.predMax)} mg/día</b> (máx. ${D.predCap})</td></tr>
+    <tr><td>Metilprednisolona IV</td><td><b>${f(D.mpMin)}–${f(D.mpMax)} mg</b></td></tr>
+    <tr><td>Sulfato de magnesio IV</td><td>${D.mgOK?`<b>${f(D.mgMin,0)}–${f(D.mgMax,0)} mg</b> en 20 min · 15 %: ${mL15(D.mgMin)}–${mL15(D.mgMax)} mL`:'<b>No indicado (&lt; 2 años)</b>'}</td></tr>
+    <tr><td>Salbutamol neb. continuo</td><td><b>${f(D.contMin,1)}–${f(D.contMax,1)} mg/h</b> · 4 h: ${f(D.cont4h/5,1)} mL + SSF hasta 40 mL a 10 mL/h</td></tr>
+    <tr><td>Salbutamol IV (UCIP)</td><td>Bolo ${f(D.salbIVbolo,0)} µg en 10 min · ${f(D.salbIVp[0],0)}–${f(D.salbIVp[1],0)} µg/min</td></tr>
+    <tr><td>Aminofilina IV</td><td>Carga ${f(D.amiCarga,0)} mg en 20 min · ${f(D.amiMant,1)} mg/h</td></tr>
+    <tr><td>Adrenalina IM (1 mg/mL)</td><td>${f(D.adr,2)} mg = ${f(D.adr,2)} mL</td></tr>
+    <tr><td>Ketamina IV (inducción)</td><td>${f(D.ket[0],0)}–${f(D.ket[1],0)} mg</td></tr>
+  </table></div><div class="hint">Compruebe la presentación comercial disponible (sulfato de magnesio 15 % = 150 mg/mL).</div>`;
+}
+
+/* ============ Botones ============ */
+$('copiar').addEventListener('click', async ()=>{
+  if (!planTxt) return;
+  try { await navigator.clipboard.writeText(planTxt); flash('copiar','Copiado ✓'); }
+  catch(e){ const t=document.createElement('textarea'); t.value=planTxt; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); flash('copiar','Copiado ✓'); }
+});
+$('imprimir').addEventListener('click', ()=>window.print());
+$('reset').addEventListener('click', ()=>{
+  ['edad','peso','sat','ps','pram','pef'].forEach(id=>$(id).value='');
+  ['rv','anaf','frisk','basal'].forEach(id=>$(id).checked=false);
+  ['colab','vo'].forEach(id=>$(id).checked=true);
+  $('fase').value='ini'; $('edadU').value='a'; manual=null;
+  document.querySelectorAll('#v-esc select').forEach(s=>s.selectedIndex=0); escalas();
+  calc(); window.scrollTo(0,0);
+});
+function flash(id,txt){ const b=$(id), o=b.textContent; b.textContent=txt; setTimeout(()=>b.textContent=o,1500); }
+
+$('irPlan').addEventListener('click',()=>$('plan').scrollIntoView({behavior:'smooth'}));
+function updIr(){ const top=$('plan').getBoundingClientRect().top;
+  $('irPlan').classList.toggle('hidden', !planTxt || !$('v-calc').classList.contains('on') || top < innerHeight*0.6); }
+addEventListener('scroll', updIr, {passive:true}); addEventListener('resize', updIr);
+
+/* ============ Pestañas ============ */
+function irA(v){
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.v===v));
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on', s.id==='v-'+v));
+  if (v==='esc'){ const a=edadAnios(); if (a!=null) setPsEdad(a<6?'p':'g'); }
+  updIr(); window.scrollTo(0,0);
+}
+document.querySelectorAll('nav.tabs button').forEach(b=>b.addEventListener('click',()=>irA(b.dataset.v)));
+
+/* ============ Escalas ============ */
+const mkSel = (pre, items) => items.map(([t,o],i)=>`<div class="sel"><label class="l" for="${pre}${i}">${t}</label><select id="${pre}${i}">${o.map(([p,x])=>`<option value="${p}">${p} · ${x}</option>`).join('')}</select></div>`).join('');
+const suma = (pre, nItems) => { let s=0; for (let i=0;i<nItems;i++) s += +$(pre+i).value; return s; };
+
+// Pulmonary Score
+let psEdad = 'p';
+const FR = {p:['< 30','31–45','46–60','> 60'], g:['< 20','21–35','36–50','> 50']};
+function psDef(){ return [
+  ['Frecuencia respiratoria', FR[psEdad].map((x,i)=>[i,x])],
+  ['Sibilancias', [[0,'No'],[1,'Final de la espiración'],[2,'Toda la espiración (estetoscopio)'],[3,'Inspiración y espiración sin estetoscopio*']]],
+  ['Uso del esternocleidomastoideo', [[0,'No'],[1,'Incremento leve'],[2,'Aumentado'],[3,'Actividad máxima']]]]; }
+function renderPs(){
+  const prev = [0,1,2].map(i=>$('ps'+i) ? $('ps'+i).value : '0');
+  $('psItems').innerHTML = mkSel('ps', psDef());
+  prev.forEach((v,i)=>$('ps'+i).value=v);
+}
+function setPsEdad(v){ psEdad=v; document.querySelectorAll('#psEdad button').forEach(b=>b.classList.toggle('on',b.dataset.v===v)); renderPs(); escalas(); }
+document.querySelectorAll('#psEdad button').forEach(b=>b.addEventListener('click',()=>setPsEdad(b.dataset.v)));
+renderPs();
+
+$('pramItems').innerHTML = mkSel('pr', [
+  ['Retracción supraesternal', [[0,'Ausente'],[2,'Presente']]],
+  ['Contracción de escalenos', [[0,'Ausente'],[2,'Presente']]],
+  ['Entrada de aire', [[0,'Normal'],[1,'Disminuida en bases'],[2,'Disminuida en ápex y bases'],[3,'Mínima o ausente']]],
+  ['Sibilancias', [[0,'Ausentes'],[1,'Solo espiratorias'],[2,'Inspiratorias (± espiratorias)'],[3,'Audibles sin estetoscopio o tórax silente']]],
+  ['SatO₂ aire ambiente', [[0,'≥ 95 %'],[1,'92–94 %'],[2,'< 92 %']]]]);
+
+$('wdfItems').innerHTML = mkSel('wf', [
+  ['Sibilancias', [[0,'No'],[1,'Final de la espiración'],[2,'Toda la espiración'],[3,'Inspiración y espiración']]],
+  ['Tiraje', [[0,'No'],[1,'Subcostal / intercostal inferior'],[2,'+ supraclavicular + aleteo nasal'],[3,'+ intercostal superior + supraesternal']]],
+  ['Frecuencia respiratoria', [[0,'< 30'],[1,'31–45'],[2,'46–60'],[3,'> 60']]],
+  ['Frecuencia cardiaca', [[0,'< 120'],[1,'> 120']]],
+  ['Ventilación (entrada de aire)', [[0,'Buena, simétrica'],[1,'Regular, simétrica'],[2,'Muy disminuida'],[3,'Tórax silente']]],
+  ['Cianosis', [[0,'No'],[1,'Sí']]]]);
+
+$('wdItems').innerHTML = mkSel('wd', [
+  ['Cianosis / hipoxemia', [[0,'Ausente (PaO₂ 70–100 mmHg en aire)'],[1,'Presente en aire ambiente'],[2,'Presente pese a FiO₂ 0,4']]],
+  ['Murmullo vesicular inspiratorio', [[0,'Normal'],[1,'Disminuido o desigual'],[2,'Muy disminuido o ausente']]],
+  ['Músculos accesorios / tiraje', [[0,'No'],[1,'Moderado'],[2,'Máximo']]],
+  ['Sibilancias espiratorias', [[0,'No'],[1,'Moderadas'],[2,'Intensas']]],
+  ['Función cerebral', [[0,'Normal'],[1,'Somnolencia o agitación'],[2,'Coma']]]]);
+
+function escalas(){
+  const ps = suma('ps',3); $('psS').textContent = ps;
+  $('psR').innerHTML = ps>=7 ? 'Grave (7–9)' : ps>=4 ? 'Moderada (4–6)' : 'Leve (0–3)';
+  const pr = suma('pr',5); $('pramS').textContent = pr;
+  $('pramR').innerHTML = pr>=11 ? '<b style="color:var(--vital)">Riesgo vital inminente (11–12)</b>' : pr>=8 ? 'Grave (8–12)' : pr>=4 ? 'Moderada (4–7)' : 'Leve (0–3)';
+  const wf = suma('wf',6); $('wdfS').textContent = wf;
+  $('wdfR').innerHTML = wf>=8 ? 'Grave (8–14)' : wf>=4 ? 'Moderada (4–7)' : wf>=1 ? 'Leve (1–3)' : 'Sin signos';
+  const wd = suma('wd',5); $('wdS').textContent = wd;
+  $('wdR').innerHTML = wd>=7 ? 'Insuficiencia respiratoria establecida si PaCO₂ ≥ 65 mmHg' : wd>=5 ? 'Insuficiencia respiratoria inminente' : wd>=4 ? 'Asma aguda grave (literatura francófona)' : 'Por debajo de los cortes habituales';
+  return {ps, pr, wf};
+}
+document.getElementById('v-esc').addEventListener('change', escalas); escalas();
+$('psA').addEventListener('click',()=>{ $('ps').value = escalas().ps; manual=null; calc(); irA('calc'); });
+$('pramA').addEventListener('click',()=>{ const pr=escalas().pr; $('pram').value = pr; manual=null; calc(); irA('calc'); });
+$('wdfA').addEventListener('click',()=>{ const w=escalas().wf; manual = w>=8?2 : w>=4?1 : 0; calc(); irA('calc'); });
+
+/* ============ Tablas de referencia por peso ============ */
+(function(){
+  const pesos = [5,10,15,20,25,30,40,50];
+  $('tPeso').innerHTML = '<tr><th>Peso</th><th>pMDI</th><th>Neb.</th><th>Ipratropio</th><th>Prednisolona</th><th>Dexametasona</th><th>Metilpred. IV</th><th>MgSO₄ IV</th></tr>' +
+    pesos.map(kg=>{ const D = dosis(kg, 8); const sm = kg<=10;   // edad ficticia ≥ 6 a para el tope de 40 mg
+      return `<tr><td><b>${kg} kg</b></td><td class="c">${D.puff}</td><td>${f(D.neb,2)} mg</td><td>${D.ipraNeb} µg / ${D.ipraPuff} puff</td>
+      <td>${D.predMin===D.predMax?f(D.predMax):f(D.predMin)+'–'+f(D.predMax)} mg</td><td>${D.dexMin===D.dexMax?f(D.dexMax):f(D.dexMin)+'–'+f(D.dexMax)} mg</td>
+      <td>${f(D.mpMin)}–${f(D.mpMax)} mg</td><td>${sm?'(':''}${D.mgMin===D.mgMax?f(D.mgMax,0):f(D.mgMin,0)+'–'+f(D.mgMax,0)} mg${sm?')†':''}</td></tr>`; }).join('');
+  $('tCont').innerHTML = '<tr><th>Peso</th><th>0,3 mg/kg/h</th><th>0,5 mg/kg/h</th><th>Para 4 h (5 mg/mL)</th><th>Preparación</th></tr>' +
+    pesos.map(kg=>{ const D = dosis(kg, 8);
+      return `<tr><td><b>${kg} kg</b></td><td>${f(D.contMin,1)} mg/h</td><td>${f(D.contMax,1)} mg/h</td><td>${f(D.cont4h,1)} mg = ${f(D.cont4h/5,1)} mL</td><td>${f(D.cont4h/5,1)} mL + SSF hasta 40 mL</td></tr>`; }).join('');
+})();
+
+/* ============ Tema ============ */
+function setTema(t){
+  if (t) document.documentElement.setAttribute('data-theme',t); else document.documentElement.removeAttribute('data-theme');
+  document.querySelectorAll('#tema button').forEach(b=>b.classList.toggle('on', b.dataset.v===t));
+  try { localStorage.setItem('tema', t); } catch(e){}
+}
+document.querySelectorAll('#tema button').forEach(b=>b.addEventListener('click',()=>setTema(b.dataset.v)));
+let tema=''; try { tema = localStorage.getItem('tema') || ''; } catch(e){}
+setTema(tema);
+
+/* ============ PWA (solo si se sirve por http/https) ============ */
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+calc();
+</script>
+</body>
+</html>
